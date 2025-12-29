@@ -1074,6 +1074,8 @@ def elf2image(args):
             image.append_digest = False
         else:
             image.append_digest = args.append_digest
+        if args.chip == "esp32":
+            image.magemark = args.magemark
     elif args.version == "1":  # ESP8266
         image = ESP8266ROMFirmwareImage()
     elif args.version == "2":

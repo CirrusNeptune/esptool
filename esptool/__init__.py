@@ -525,6 +525,11 @@ def main(argv=None, esp=None):
         action="store_true",
         default=None,
     )
+    parser_elf2image.add_argument(
+        "--magemark",
+        help="If set, magemark the image.",
+        action="store_true",
+    )
 
     add_spi_flash_subparsers(parser_elf2image, allow_keep=False, auto_detect=False)
 

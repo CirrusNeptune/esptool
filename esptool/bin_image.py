@@ -636,6 +636,8 @@ class ESP32FirmwareImage(BaseFirmwareImage):
         self.append_digest = append_digest
         self.data_length = None
 
+        self.magemark = False
+
         if load_file is not None:
             start = load_file.tell()
 
@@ -933,7 +935,11 @@ class ESP32FirmwareImage(BaseFirmwareImage):
             self.min_rev_full,
             self.max_rev_full,
         ]
-        fields += [0] * 4  # padding
+        if self.magemark:
+            fields += [1]
+            fields += [0] * 3  # padding
+        else:
+            fields += [0] * 4  # padding
         fields += [append_digest]
 
         packed = struct.pack(self.EXTENDED_HEADER_STRUCT_FMT, *fields)
